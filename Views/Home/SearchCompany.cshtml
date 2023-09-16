@@ -1,44 +1,44 @@
-<form class="row g-3">
+@model Company
+
+<button type="button" class="btn btn-primary" asp-controller="Home" asp-action="Privacy">Voltar</button>
+@if (ViewData.ContainsKey("errorMessage"))
+{
+  <p>@ViewData["errorMessage"]</p>
+}
+else
+{
+
+  <div class="row g-3">
   <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
-  </div>
-  <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">Password</label>
-    <input type="password" class="form-control" id="inputPassword4">
-  </div>
-  <div class="col-12">
-    <label for="inputAddress" class="form-label">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="col-12">
-    <label for="inputAddress2" class="form-label">Address 2</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    <label class="form-label">Nome</label>
+    <p><b>@ViewData["nome"]</b></p>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">City</label>
-    <input type="text" class="form-control" id="inputCity">
+    <label class="form-label">Tipo</label>
+    <p><b>@ViewData["tipo"]</b></p>
   </div>
-  <div class="col-md-4">
-    <label for="inputState" class="form-label">State</label>
-    <select id="inputState" class="form-select">
-      <option selected>Choose...</option>
-      <option>...</option>
-    </select>
+  <div class="col-6">
+    <label class="form-label">CEP</label>
+    <p><b>@ViewData["cep"]</b></p>
   </div>
-  <div class="col-md-2">
-    <label for="inputZip" class="form-label">Zip</label>
-    <input type="text" class="form-control" id="inputZip">
+  <div class="col-6">
+    <label class="form-label">Estado</label>
+    <p><b>@ViewData["uf"]</b></p>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Capital Social</label>
+    <p><b>@ViewData["capital_social"]</b></p>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Situação</label>
+    <p><b>@ViewData["situacao"]</b></p>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Telefone</label>
+    <p><b>@ViewData["telefone"]</b></p>
   </div>
   <div class="col-12">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
-      <label class="form-check-label" for="gridCheck">
-        Check me out
-      </label>
-    </div>
+    <button type="submit" class="btn btn-primary">Salvar Empresa</button>
   </div>
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </div>
-</form>
+</div>
+}

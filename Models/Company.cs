@@ -1,11 +1,11 @@
 public class Company
 {
-  public string CNPJ { get; set; }
-  public string name { get; set; }
-  public string about { get; set; }
-  public string address { get; set; }
-  public string city { get; set; }
-  public string phone { get; set; }
-  public string status { get; set; }
-  public string shareCapital { get; set; }
+  public string cnpj { get; set; }
+  public string nome { get; set; }
+  public string tipo { get; set; }
+  public string cep { get; set; }
+  public string uf { get; set; }
+  public string telefone { get; set; }
+  public string situacao { get; set; }
+  public string capital_social { get; set; }
 }

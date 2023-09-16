@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Grup_GPS.Models;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Grup_GPS.Controllers;
 
@@ -33,9 +35,29 @@ public class HomeController : Controller
   {
     try
     {
-      Console.Write(cnpj);
-      string response = await httpClient.GetStringAsync($"https://receitaws.com.br/v1/cnpj/{cnpj}");
-      Console.Write(response);
+      HttpResponseMessage response = await httpClient.GetAsync($"https://receitaws.com.br/v1/cnpj/{cnpj}");
+      if (response.IsSuccessStatusCode)
+      {
+        string json = await response.Content.ReadAsStringAsync();
+        Company obj = JsonSerializer.Deserialize<Company>(json);
+        if (obj != null)
+        {
+          Console.Write("nao null");
+          ViewData["nome"] = obj.nome;
+          ViewData["cnpj"] = obj.cnpj;
+          ViewData["situacao"] = obj.situacao;
+          ViewData["uf"] = obj.uf;
+          ViewData["capital_social"] = obj.capital_social;
+          ViewData["cep"] = obj.cep;
+          ViewData["tipo"] = obj.tipo;
+          return View();
+        }
+        else
+        {
+          Console.Write("null");
+          ViewData["errorMessage"] = "Não foi possível obter dados da empresa.";
+        }
+      }
     }
     catch (System.Exception)
     {
