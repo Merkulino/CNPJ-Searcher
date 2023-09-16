@@ -1,8 +1,12 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Company
+@{
+    ViewData["Title"] = "Buscar";
 }
 
-<div class="text-center">
-    <h1>Hello World</h1>
-    <p>Hello ASP.NET ;)</p>
+<div class="col-md-6 mx-auto">
+    <form method="get" class="input-group" asp-controller="Home" asp-action="SearchCompany">
+        <input type="number" class="form-control" placeholder="CNPJ" 
+            aria-label="input de CNPJ" maxlength="14" name="cnpj">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
 </div>
