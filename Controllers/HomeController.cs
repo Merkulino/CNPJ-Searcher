@@ -8,6 +8,8 @@ namespace Grup_GPS.Controllers;
 
 public class HomeController : Controller
 {
+  public static List<Company> companiesList { get; } = new List<Company>();
+
   private readonly HttpClient httpClient;
   public HomeController()
   {
@@ -21,9 +23,9 @@ public class HomeController : Controller
 
   public IActionResult Privacy()
   {
-    return View();
+    return View(companiesList);
   }
-
+  
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult Error()
   {
@@ -42,7 +44,6 @@ public class HomeController : Controller
         Company obj = JsonSerializer.Deserialize<Company>(json);
         if (obj != null)
         {
-          Console.Write("nao null");
           ViewData["nome"] = obj.nome;
           ViewData["cnpj"] = obj.cnpj;
           ViewData["situacao"] = obj.situacao;
@@ -54,7 +55,6 @@ public class HomeController : Controller
         }
         else
         {
-          Console.Write("null");
           ViewData["errorMessage"] = "Não foi possível obter dados da empresa.";
         }
       }
@@ -66,8 +66,14 @@ public class HomeController : Controller
     return View();
   }
 
-  public void SaveCompany()
+  [HttpPost("SaveCompany", Name = "SaveCompany")]
+  public ActionResult SaveCompany(Company company)
   {
-
+    companiesList.Add(company);    
+    Console.Write("Valor companu ->");
+    Console.Write(company.tipo);
+    Console.Write("<-Valor companu");
+    Console.Write(companiesList.FindLast);
+    return RedirectToAction("Index");
   }
 }

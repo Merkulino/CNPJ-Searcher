@@ -29,24 +29,4 @@
             alert.textContent = "CNPJ inválido: precisa de 14 números";
         }
     });
-    /*
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const cnpj = input.value;
-        try {
-            const response = await fetch(`https://receitaws.com.br/v1/cnpj/${cnpj}`);
-            console.log(response)
-            if (response.ok) {
-                alert.style.display = "none";
-            } else {
-                alert.style.display = "block";
-                alert.textContent = "Erro ao buscar a empresa. Verifique o CNPJ e tente novamente.";
-            }
-        } catch (error) {
-            alert.style.display = "block";
-            alert.textContent = "Erro ao buscar a empresa. Tente novamente mais tarde.";
-            console.log(cnpj)
-        }
-    });
-    */
 </script>

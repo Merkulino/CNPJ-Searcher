@@ -1,6 +1,8 @@
 @model Company
 
-<button type="button" class="btn btn-primary" asp-controller="Home" asp-action="Privacy">Voltar</button>
+@{
+}
+<button type="button" class="btn btn-primary" asp-controller="Home" asp-action="Index">Voltar</button>
 @if (ViewData.ContainsKey("errorMessage"))
 {
   <p>@ViewData["errorMessage"]</p>
@@ -8,37 +10,64 @@
 else
 {
 
-  <div class="row g-3">
+  <form method="post" class="row g-3">
   <div class="col-md-6">
-    <label class="form-label">Nome</label>
-    <p><b>@ViewData["nome"]</b></p>
-  </div>
-  <div class="col-md-6">
-    <label class="form-label">Tipo</label>
-    <p><b>@ViewData["tipo"]</b></p>
-  </div>
-  <div class="col-6">
-    <label class="form-label">CEP</label>
-    <p><b>@ViewData["cep"]</b></p>
-  </div>
-  <div class="col-6">
-    <label class="form-label">Estado</label>
-    <p><b>@ViewData["uf"]</b></p>
-  </div>
-  <div class="col-md-6">
-    <label class="form-label">Capital Social</label>
-    <p><b>@ViewData["capital_social"]</b></p>
-  </div>
-  <div class="col-md-6">
-    <label class="form-label">Situação</label>
-    <p><b>@ViewData["situacao"]</b></p>
-  </div>
-  <div class="col-md-6">
-    <label class="form-label">Telefone</label>
-    <p><b>@ViewData["telefone"]</b></p>
-  </div>
+        <label class="form-label">Nome</label>
+        <input type="text" name="Nome" class="form-control" value="@ViewData["nome"]" readonly />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Tipo</label>
+        <input type="text" name="Tipo" class="form-control" value="@ViewData["tipo"]" readonly />
+    </div>
+    <div class="col-6">
+        <label class="form-label">CEP</label>
+        <input type="text" name="Cep" class="form-control" value="@ViewData["cep"]" readonly />
+    </div>
+    <div class="col-6">
+        <label class="form-label">Estado</label>
+        <input type="text" name="Uf" class="form-control" value="@ViewData["uf"]" readonly />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Capital Social</label>
+        <input type="text" name="CapitalSocial" class="form-control" value="@ViewData["capital_social"]" readonly />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Situação</label>
+        <input type="text" name="Situacao" class="form-control" value="@ViewData["situacao"]" readonly />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Telefone</label>
+        <input type="text" name="Telefone" class="form-control" value="@ViewData["telefone"]" readonly />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">CNPJ</label>
+        <input type="text" name="Cnpj" class="form-control" value="@ViewData["cnpj"]" readonly />
+    </div>
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Salvar Empresa</button>
+    <button type="submit" class="btn btn-primary" id="btnSubmit" asp-controller="Home" asp-action="SaveCompany">Salvar
+      Empresa</button>
   </div>
-</div>
+</form>
 }
+
+<script>
+  /*
+  document.getElementById("btnSubmit").addEventListener("click", () => {
+    const name = "@ViewData["nome"]";
+    const tipo = "@ViewData["tipo"]";
+    const cnpj = "@ViewData["cnpj"]";
+    const status = "@ViewData["situacao"]";
+
+    const storage = JSON.parse(sessionStorage.getItem('companies'));
+    console.log(storage)
+    if (storage == null || !storage.cnpj === cnpj) {
+      console.log(name);
+      sessionStorage.setItem('companies', JSON.stringify({ name, tipo, cnpj, status }));
+    } else {
+
+      console.log("nao salva");
+    }
+
+  })
+  */
+</script>
