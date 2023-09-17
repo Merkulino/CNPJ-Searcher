@@ -16,15 +16,13 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Empresa de fazer alguma coisa</td>
-      <td>12312312312312</td>
-      <td>FECHADO</td>
+      @if (Model.Count < 1) {
+        <th>Nenhuma empresa cadastrada</th>
+      }
     </tr>
     @foreach (var company in Model) {
       <tr>
-        <th scope="row">1</th>
+        <th scope="row">@company.id</th>
         <td>@company.nome</td>
         <td>@company.tipo</td>
         <td>@company.cnpj</td>

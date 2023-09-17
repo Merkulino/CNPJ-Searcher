@@ -2,8 +2,8 @@
 
 @{
 }
-<button type="button" class="btn btn-primary" asp-controller="Home" asp-action="Index">Voltar</button>
-@if (ViewData.ContainsKey("errorMessage"))
+<a type="submit" class="btn btn-primary" asp-controller="Home" asp-action="Index">Voltar</a>
+@if (ViewData.ContainsKey("errorMessage") )
 {
   <p>@ViewData["errorMessage"]</p>
 }
@@ -49,25 +49,6 @@ else
   </div>
 </form>
 }
-
 <script>
-  /*
-  document.getElementById("btnSubmit").addEventListener("click", () => {
-    const name = "@ViewData["nome"]";
-    const tipo = "@ViewData["tipo"]";
-    const cnpj = "@ViewData["cnpj"]";
-    const status = "@ViewData["situacao"]";
-
-    const storage = JSON.parse(sessionStorage.getItem('companies'));
-    console.log(storage)
-    if (storage == null || !storage.cnpj === cnpj) {
-      console.log(name);
-      sessionStorage.setItem('companies', JSON.stringify({ name, tipo, cnpj, status }));
-    } else {
-
-      console.log("nao salva");
-    }
-
-  })
-  */
+  console.log("@ViewData["nome"]" === "")
 </script>

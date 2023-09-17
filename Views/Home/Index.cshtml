@@ -3,13 +3,21 @@
     ViewData["Title"] = "Buscar";
 }
 
+<style>
+    #alertMessage {
+        display: none;
+        color: red;
+    }
+</style>
+
 <div class="col-md-6 mx-auto">
+    <label class="form-label">Insira um CNPJ válido</label>
     <form method="get" class="input-group" asp-controller="Home" asp-action="SearchCompany" id="form">
         <input type="number" class="form-control" placeholder="CNPJ" aria-label="input de CNPJ" maxlength="14"
             name="cnpj" id="inputForm">
         <button type="submit" class="btn btn-primary" id="btnSubmit" disabled>Buscar</button>
     </form>
-    <p style="display: none;" id="alertMessage"></p>
+    <p id="alertMessage"></p>
 </div>
 
 <script>

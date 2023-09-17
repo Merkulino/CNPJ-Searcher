@@ -25,7 +25,7 @@ public class HomeController : Controller
   {
     return View(companiesList);
   }
-  
+
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult Error()
   {
@@ -40,9 +40,10 @@ public class HomeController : Controller
       HttpResponseMessage response = await httpClient.GetAsync($"https://receitaws.com.br/v1/cnpj/{cnpj}");
       if (response.IsSuccessStatusCode)
       {
+        ViewData.Remove("errorMessage");
         string json = await response.Content.ReadAsStringAsync();
         Company obj = JsonSerializer.Deserialize<Company>(json);
-        if (obj != null)
+        if (obj.nome != null || obj.nome != "")
         {
           ViewData["nome"] = obj.nome;
           ViewData["cnpj"] = obj.cnpj;
@@ -51,11 +52,8 @@ public class HomeController : Controller
           ViewData["capital_social"] = obj.capital_social;
           ViewData["cep"] = obj.cep;
           ViewData["tipo"] = obj.tipo;
+          ViewData["telefone"] = obj.telefone;
           return View();
-        }
-        else
-        {
-          ViewData["errorMessage"] = "Não foi possível obter dados da empresa.";
         }
       }
     }
@@ -63,17 +61,19 @@ public class HomeController : Controller
     {
       throw;
     }
+    ViewData["errorMessage"] = "Não foi possível obter dados da empresa.";
     return View();
   }
 
   [HttpPost("SaveCompany", Name = "SaveCompany")]
   public ActionResult SaveCompany(Company company)
   {
-    companiesList.Add(company);    
-    Console.Write("Valor companu ->");
-    Console.Write(company.tipo);
-    Console.Write("<-Valor companu");
-    Console.Write(companiesList.FindLast);
+    int listLength = companiesList.Count();
+    company.id = listLength + 1;
+    if (listLength == 0 || companiesList.Any(com => com.cnpj != company.cnpj))
+    {
+      companiesList.Add(company);
+    }
     return RedirectToAction("Index");
   }
 }
