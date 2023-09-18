@@ -43,7 +43,7 @@ public class HomeController : Controller
         ViewData.Remove("errorMessage");
         string json = await response.Content.ReadAsStringAsync();
         Company obj = JsonSerializer.Deserialize<Company>(json);
-        if (obj.nome != null || obj.nome != "")
+        if (obj.nome is not null)
         {
           ViewData["nome"] = obj.nome;
           ViewData["cnpj"] = obj.cnpj;
@@ -55,13 +55,18 @@ public class HomeController : Controller
           ViewData["telefone"] = obj.telefone;
           return View();
         }
+        else
+        {
+          ViewData["errorMessage"] = "Erro ao carregar empresa: CNPJ inválido.";
+          return View();
+        }
       }
     }
     catch (System.Exception)
     {
       throw;
     }
-    ViewData["errorMessage"] = "Não foi possível obter dados da empresa.";
+    ViewData["errorMessage"] = "Ocorreu um erro: Não foi possível obter dados da empresa.";
     return View();
   }
 

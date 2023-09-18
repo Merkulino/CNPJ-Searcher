@@ -3,7 +3,7 @@
 @{
 }
 <a type="submit" class="btn btn-primary" asp-controller="Home" asp-action="Index">Voltar</a>
-@if (ViewData.ContainsKey("errorMessage") )
+@if (ViewData.ContainsKey("errorMessage") || string.IsNullOrWhiteSpace(ViewData["nome"] as string))
 {
   <p>@ViewData["errorMessage"]</p>
 }
