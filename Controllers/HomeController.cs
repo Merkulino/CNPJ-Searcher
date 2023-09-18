@@ -18,6 +18,7 @@ public class HomeController : Controller
 
   public IActionResult Index()
   {
+    ViewData.Remove("errorMessage");
     return View();
   }
 
@@ -68,7 +69,7 @@ public class HomeController : Controller
   {
     int listLength = companiesList.Count();
     company.id = listLength + 1;
-    if (listLength == 0 || companiesList.Any(com => com.cnpj != company.cnpj))
+    if (listLength == 0 || !companiesList.Any(com => com.cnpj.Equals(company.cnpj)))
     {
       companiesList.Add(company);
     }
