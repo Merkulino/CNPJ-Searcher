@@ -21,7 +21,7 @@ public class HomeController : Controller
     return View();
   }
 
-  public IActionResult Privacy()
+  public IActionResult Companies()
   {
     return View(companiesList);
   }
@@ -32,6 +32,7 @@ public class HomeController : Controller
     return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
   }
 
+  // Fazendo busca sem requisição AJAX, utilizando httpclient
   [HttpGet("SearchCompany")]
   public async Task<ViewResult> SearchCompany(string cnpj)
   {
@@ -40,20 +41,11 @@ public class HomeController : Controller
       HttpResponseMessage response = await httpClient.GetAsync($"https://receitaws.com.br/v1/cnpj/{cnpj}");
       if (response.IsSuccessStatusCode)
       {
-        ViewData.Remove("errorMessage");
         string json = await response.Content.ReadAsStringAsync();
         Company obj = JsonSerializer.Deserialize<Company>(json);
         if (obj.nome is not null)
         {
-          ViewData["nome"] = obj.nome;
-          ViewData["cnpj"] = obj.cnpj;
-          ViewData["situacao"] = obj.situacao;
-          ViewData["uf"] = obj.uf;
-          ViewData["capital_social"] = obj.capital_social;
-          ViewData["cep"] = obj.cep;
-          ViewData["tipo"] = obj.tipo;
-          ViewData["telefone"] = obj.telefone;
-          return View();
+          return View(obj);
         }
         else
         {
@@ -62,9 +54,10 @@ public class HomeController : Controller
         }
       }
     }
-    catch (System.Exception)
+    catch (Exception e)
     {
-      throw;
+      Console.WriteLine("Erro na requisição da API: " + e);
+      throw new ApplicationException();
     }
     ViewData["errorMessage"] = "Ocorreu um erro: Não foi possível obter dados da empresa.";
     return View();
@@ -81,4 +74,23 @@ public class HomeController : Controller
     }
     return RedirectToAction("Index");
   }
+
+
+  // Tentativa de fazer uma busca via requisição AJAX, porém deu erro de CORS e não consegui resolver
+  /*
+  public ViewResult SearchCompany(string encondedCompany)
+  {
+    var decodedCompany = Uri.UnescapeDataString(encondedCompany);
+    Company obj = JsonSerializer.Deserialize<Company>(decodedCompany);
+    ViewData["nome"] = obj.nome;
+    ViewData["cnpj"] = obj.cnpj;
+    ViewData["situacao"] = obj.situacao;
+    ViewData["uf"] = obj.uf;
+    ViewData["capital_social"] = obj.capital_social;
+    ViewData["cep"] = obj.cep;
+    ViewData["tipo"] = obj.tipo;
+    ViewData["telefone"] = obj.telefone;
+    return View();
+  }
+  */
 }

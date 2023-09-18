@@ -12,7 +12,7 @@
 
 <div class="col-md-6 mx-auto">
     <label class="form-label">Insira um CNPJ válido</label>
-    <form method="get" class="input-group" asp-controller="Home" asp-action="SearchCompany" id="form">
+    <form class="input-group" method="get" asp-controller="Home" asp-action="SearchCompany">
         <input type="number" class="form-control" placeholder="CNPJ" aria-label="input de CNPJ" maxlength="14"
             name="cnpj" id="inputForm">
         <button type="submit" class="btn btn-primary" id="btnSubmit" disabled>Buscar</button>
@@ -21,7 +21,6 @@
 </div>
 
 <script>
-    const form = document.querySelector("#form");
     const input = document.querySelector("#inputForm");
     const btn = document.querySelector("#btnSubmit");
     const alert = document.querySelector("#alertMessage");
@@ -37,4 +36,22 @@
             alert.textContent = "CNPJ inválido: precisa de 14 números";
         }
     });
+
+    /* Requisição AJAX mal sucedida
+    btn.addEventListener("click", () => {
+        const cnpj = input.value;
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", `https://receitaws.com.br/v1/cnpj/${cnpj}`, true);
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                if (companyResponse.nome) {
+                    window.location.href = `/SearchCompany?company=${encodeURIComponent(xhr.responseText)}`;
+                } else {
+                    console.log("CNPJ inválido");
+                }
+            }
+        }
+        xhr.send();
+    })
+    */
 </script>
